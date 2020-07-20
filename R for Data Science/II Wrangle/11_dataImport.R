@@ -54,3 +54,30 @@ str(parse_date(c("2010-01-01", "1979-10-14")))
 parse_integer(c("1", "231", ".", "456"), na = ".")
 x <- parse_integer(c("123", "345", "abc", "123.45"))
 problems(x)
+
+parse_double("1.23")
+parse_double("1,23", locale = locale(decimal_mark = ","))
+parse_number("$100")
+parse_number("20%")
+parse_number("It cost $123.45")
+parse_number("$123,456,789")
+parse_number("123.456.789", locale = locale(grouping_mark = "."))
+parse_number("123'456'789", locale = locale(grouping_mark = "'"))
+
+fruit <- c("apple", "banana")
+parse_factor(c("apple", "banana", "bananana"), levels = fruit)
+
+parse_datetime("2010-10-01T2010")
+parse_datetime("20101010")
+parse_date("2010-10-01")
+
+library(hms)
+parse_time("01:10 am")
+parse_time("20:10:01")
+
+parse_date("01/02/15", "%m/%d/%y")
+parse_date("01/02/15", "%d/%m/%y")
+parse_date("01/02/15", "%y/%m/%d")
+
+# If you’re using %b or %B with non-English month names, you’ll need to set the lang argument to locale(). See the list of built-in languages in date_names_langs(), or if your language is not already included, create your own with date_names().
+parse_date("1 janvier 2015", "%d %B %Y", locale = locale("fr"))
